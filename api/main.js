@@ -16,7 +16,7 @@ app.use(express.static('static'));
 app.get('*', function(req, res) {
 
 	res.sendFile(`${__dirname}/static/index.html`);
-	
+
 });
 
 initDatabase();
@@ -30,9 +30,12 @@ initEmail({
 		password
 	},
 	from: `Server Manager <${email}>`
-})
+});
 
-const httpServer = app.listen(8080, function() {
-	console.log('Http server started');
+
+const PORT = process.env.PORT || 8080;
+
+const httpServer = app.listen(PORT, function() {
+	console.log('Http server started at', PORT);
 	initWebsockets(httpServer);
 });

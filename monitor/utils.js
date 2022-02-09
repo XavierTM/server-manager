@@ -55,7 +55,8 @@ function sendToServer(type, payload) {
 }
 
 const hostname = os.hostname();
-const websocketURL = `ws://localhost:8080?hostname=${hostname}`;
+const MANAGER_URL = (process.env.MANAGER_URL || 'ws://localhost:8080').replace(/^http/, 'ws');
+const websocketURL = `${MANAGER_URL}?hostname=${hostname}`;
 const reconnectDelay = 3000;
 
 const client = new WebSocketClient();
