@@ -56,7 +56,6 @@ class ServerModal extends Component {
 			disk_usage='', 
 			disk_space='', 
 			cpu_usage='',
-			uptime='',
 			reset=0,
 			down_time=0,
 			last_status_update=0,
@@ -124,6 +123,7 @@ class ServerModal extends Component {
 									last_status_update={last_status_update}
 									down_time={down_time}
 									status={status}
+									server_name={name}
 								/>
 							</TableCell>
 						</TableRow>

@@ -106,7 +106,7 @@ async function processServerStatus(conn, status) {
 
 		if (results[0].isNewRecord) {
 			const connections = getUserConnections();
-			sendMessageToClient(connections, results[0]);
+			sendMessageToClient(connections, 'add-server', { server:results[0] });
 		}
 
 	} catch (err) {

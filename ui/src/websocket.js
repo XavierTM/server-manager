@@ -3,12 +3,16 @@ import actions from './actions';
 import { v4 as uuid } from 'uuid';
 
 
+const protocol = window.location.protocol.replace('http', 'ws');
+const host = window.location.host;
+const websocketURL = `${protocol}//${host}`;
+
 function connect () {
 
 	if (websocket && websocket.connected)
 		return;
 
-	websocket = new window.WebSocket('ws://localhost:8080');
+	websocket = new window.WebSocket(websocketURL);
 
 	websocket.onopen = onConnectedHandler;
 	websocket.onclose = reconnect;
@@ -63,6 +67,12 @@ function onMessageHandler({ data }) {
 			case 'response':
 
 				processResponse(payload);
+				break;
+
+			case 'add-server':
+
+				const server = payload.server;
+				actions.addServer(server);
 				break;
 
 			default:

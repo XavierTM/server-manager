@@ -58,7 +58,10 @@ class Uptime extends Component {
 
 	componentDidUpdate(prevProps) {
 
-		if (prevProps.reset.toString() !== this.props.reset.toString()) {
+		const hasServerChanged = prevProps.server_name !== this.props.server_name;
+		const hasBeenReset = prevProps.reset.toString() !== this.props.reset.toString();
+
+		if (hasServerChanged || hasBeenReset) {
 			this.initializeUptime();
 		}
 

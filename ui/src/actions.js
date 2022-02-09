@@ -11,6 +11,9 @@ function addServer(server) {
 		type: 'add-server',
 		payload: server
 	}
+
+	store.dispatch(action);
+	
 }
 
 function setServers(servers) {
