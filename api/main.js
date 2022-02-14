@@ -13,15 +13,13 @@ const app = express();
 
 app.use(express.static('static'));
 
-app.get('*', function(req, res) {
-
-	res.sendFile(`${__dirname}/static/index.html`);
-
-});
+// app.get('*', function(req, res) {
+// 	res.sendFile(`${__dirname}/static/index.html`);
+// });
 
 initDatabase();
-const email = 'N0162736C@students.nust.ac.zw';
-const password = '210683504';
+const email = 'mapetajustinn@gmail.com';
+const password = 'peejay20415';
 
 initEmail({
 	service: 'gmail',

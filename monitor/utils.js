@@ -82,17 +82,15 @@ function isLogValid(log) {
 
 async function checkLoginAttempts() {
 
-	console.log('====================');
-
 	child_process.exec(`tail -1 ${LOG_FILE_PATH} | grep "Failed password"`, function(err, stdout, stderr) {
 
 		if (err) {
-			console.log(err);
+			console.log(err.toString());
 			return;
 		}
 
 		if (stderr) {
-			console.log(stderr);
+			console.log(stderr.toString());
 			return;
 		}
 

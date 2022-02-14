@@ -256,7 +256,7 @@ async function onDisconnectedHandler() {
 			await Server.update({ status: 'DOWN'}, { where: { name: hostname }});
 
 			await sendEmail({
-				to: 'xaviermukodi@gmail.com',
+				to: 'mapetajustinn@gmail.com',
 				subject: 'Server Down',
 				text: `Server "${hostname}" just got down.`
 			});
