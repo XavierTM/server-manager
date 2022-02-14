@@ -4,6 +4,37 @@ const { Server } = require('../db');
 const { getUserConnections, removeUserConnection } = require('./utils');
 const { sendEmail } = require('../email');
 
+const Vonage = require('@vonage/server-sdk')
+
+const vonage = new Vonage({
+  apiKey: "446379ed",
+  apiSecret: "WOi0qPohd341Exns"
+});
+
+
+function notifyAdminOfServerDownViaSMS(hostname) {
+
+	const from = "Vonage APIs"
+	const to = "263784319425"
+	const text = `Server ${hostname} just got down.`
+
+
+	return new Promise((resolve, reject) => {
+
+		vonage.message.sendSms(from, to, text, (err, responseData) => {
+		    if (err) {
+		        reject(err);
+		    } else {
+		        if(responseData.messages[0]['status'] === "0") {
+		            resolve();
+		        } else {
+		            reject(responseData.messages[0]['error-text']);
+		        }
+		    }
+		});
+	});
+}
+
 
 
 async function processResetServerRequest(payload) {
@@ -260,6 +291,8 @@ async function onDisconnectedHandler() {
 				subject: 'Server Down',
 				text: `Server "${hostname}" just got down.`
 			});
+
+			await notifyAdminOfServerDownViaSMS(hostname);
 
 		} catch (err) {
 			console.log(err);
